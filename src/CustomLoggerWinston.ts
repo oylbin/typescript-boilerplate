@@ -1,9 +1,9 @@
 import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
-import { MyLogger, MyLoggerConfig, MyLoggerFactory } from './loggerinterface';
+import { AbstractMyLoggerFactory, IMyLogger, MyLoggerConfig } from './loggerinterface';
 
-export class MyLoggerImpl implements MyLogger {
+export class MyLoggerImpl implements IMyLogger {
   private _logger: winston.Logger;
   constructor(config: MyLoggerConfig) {
     const transports = [];
@@ -49,8 +49,8 @@ export class MyLoggerImpl implements MyLogger {
   }
 }
 
-export class MyLoggerFactoryImpl implements MyLoggerFactory {
-  private static _logger: MyLogger | undefined;
+export class MyLoggerFactoryImpl implements AbstractMyLoggerFactory {
+  private static _logger: IMyLogger | undefined;
   private static _config: MyLoggerConfig;
   static init(config: MyLoggerConfig): void {
     // eslint-disable-next-line no-console
@@ -58,11 +58,11 @@ export class MyLoggerFactoryImpl implements MyLoggerFactory {
     this._config = config;
     this._logger = new MyLoggerImpl(config);
   }
-  static getLogger(name: string | undefined = undefined): MyLogger {
+  static getLogger(name: string | undefined = undefined): IMyLogger {
     // name is useless in this implementation
     if (name === undefined) {
       name = 'root';
     }
-    return MyLoggerFactoryImpl._logger as MyLogger;
+    return MyLoggerFactoryImpl._logger as IMyLogger;
   }
 }

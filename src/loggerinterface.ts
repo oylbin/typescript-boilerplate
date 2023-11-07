@@ -5,7 +5,7 @@ export interface MyLoggerConfig {
   enableConsole: boolean;
   enableFile: boolean;
 }
-export interface MyLogger {
+export interface IMyLogger {
   debug(message: any): void;
   info(message: any): void;
   warn(message: any): void;
@@ -13,13 +13,13 @@ export interface MyLogger {
   setLevel(level: string): void;
 }
 
-export abstract class MyLoggerFactory {
+export abstract class AbstractMyLoggerFactory {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static init(_config: MyLoggerConfig): void {
     throw new Error('Method not implemented.');
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  static getLogger(name: string | undefined = undefined): MyLogger {
+  static getLogger(name: string | undefined = undefined): IMyLogger {
     throw new Error('Method not implemented.');
   }
 }
