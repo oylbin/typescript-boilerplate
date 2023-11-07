@@ -1,0 +1,8 @@
+node_modules
+release
+dist
+chrome_userdata
+logs
+.erb
+.env*
+jenkins/venv/
